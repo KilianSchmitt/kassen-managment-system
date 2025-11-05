@@ -1,17 +1,14 @@
 package com.acme.kms.repository;
 
-import com.acme.kms.entity.Patient;
+import com.acme.kms.entity.Kasse;
 import java.util.Collection;
 import org.springframework.stereotype.Repository;
-import static com.acme.kms.repository.MockDB.PATIENTEN;
+import static com.acme.kms.repository.MockDB.getKassen;
 
 @Repository
-public class PatientenRepository {
-
-    public PatientenRepository() {
-    }
-
-    public Collection<Patient> findAll() {
-        return PATIENTEN;
+@SuppressWarnings("PMD")
+public class KassenRepository {
+    public Collection<Kasse> findAll() {
+        return getKassen();
     }
 }

@@ -2,30 +2,17 @@ package com.acme.kms.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.UUID;
 
-public class Bon {
+public class KassenBon {
     private UUID id;
     private LocalDate date;
     private BigDecimal betrag;
 
-    public Bon(UUID id, LocalDate date, BigDecimal betrag) {
+    public KassenBon(final UUID id, final LocalDate date, final BigDecimal betrag) {
         this.id = id;
         this.date = date;
         this.betrag = betrag;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Bon bon = (Bon) o;
-        return Objects.equals(id, bon.id) && Objects.equals(date, bon.date) && Objects.equals(betrag, bon.betrag);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, date, betrag);
     }
 
     @Override
@@ -41,7 +28,7 @@ public class Bon {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(final UUID id) {
         this.id = id;
     }
 
@@ -49,7 +36,7 @@ public class Bon {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(final LocalDate date) {
         this.date = date;
     }
 
@@ -57,7 +44,7 @@ public class Bon {
         return betrag;
     }
 
-    public void setBetrag(BigDecimal betrag) {
+    public void setBetrag(final BigDecimal betrag) {
         this.betrag = betrag;
     }
 }

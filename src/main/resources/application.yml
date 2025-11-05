@@ -69,7 +69,7 @@ server:
   shutdown: graceful
 
 spring:
-  application.name: kunde
+  application.name: kms
   aop.proxy-target-class: false
 
   # ==============================================================================
@@ -139,12 +139,6 @@ spring:
     #properties.mail.smtp.starttls.enable: true
 
   main.lazy-initialization: true
-  mvc:
-    apiversion:
-      default: 1.0.0
-      use.header: X-Version
-    contentnegotiation.default-content-types: [application/json]
-    problemdetails.enabled: true
 
   # ==============================================================================
   # S e c u r i t y

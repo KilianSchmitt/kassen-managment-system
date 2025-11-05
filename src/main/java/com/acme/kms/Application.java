@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.acme.patientverwaltung;
+package com.acme.kms;
 
-import com.acme.patientverwaltung.config.DevConfig;
-import com.acme.patientverwaltung.config.WebConfig;
+import com.acme.kms.config.DevConfig;
+import com.acme.kms.config.WebConfig;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportRuntimeHints;
-import static com.acme.patientverwaltung.Banner.TEXT;
+import static com.acme.kms.Banner.TEXT;
 
 /// Klasse mit der `main`-Methode für die Anwendung auf Basis von _Spring Boot_.
 ///

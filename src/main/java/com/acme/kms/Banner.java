@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.acme.patientverwaltung;
+package com.acme.kms;
 
 // import module java.base; // NOSONAR
 import java.net.InetAddress;
@@ -39,12 +39,17 @@ final class Banner {
 
     // http://patorjk.com/software/taag/#p=display&f=Slant&t=kunde%202025.10.1
     private static final String FIGLET = """
-            __                   __        ___   ____ ___   ______ _______   ___
-           / /____  ______  ____/ /__     |__ \\ / __ \\__ \\ / ____/<  / __ \\ <  /
-          / //_/ / / / __ \\/ __  / _ \\    __/ // / / /_/ //___ \\  / / / / / / /\s
-         / ,< / /_/ / / / / /_/ /  __/   / __// /_/ / __/____/ / / / /_/ / / / \s
-        /_/|_|\\__,_/_/ /_/\\__,_/\\___/   /____/\\____/____/_____(_)_/\\____(_)_/
-        """;
+            8 8888     ,88'          ,8.       ,8.            d888888o.  \s
+            8 8888    ,88'          ,888.     ,888.         .`8888:' `88.\s
+            8 8888   ,88'          .`8888.   .`8888.        8.`8888.   Y8\s
+            8 8888  ,88'          ,8.`8888. ,8.`8888.       `8.`8888.    \s
+            8 8888 ,88'          ,8'8.`8888,8^8.`8888.       `8.`8888.   \s
+            8 8888 88'          ,8' `8.`8888' `8.`8888.       `8.`8888.  \s
+            8 888888<          ,8'   `8.`88'   `8.`8888.       `8.`8888. \s
+            8 8888 `Y8.       ,8'     `8.`'     `8.`8888.  8b   `8.`8888.\s
+            8 8888   `Y8.    ,8'       `8        `8.`8888. `8b.  ;8.`8888\s
+            8 8888     `Y8. ,8'         `         `8.`8888. `Y8888P ,88P'\s
+           """;
     private static final String SERVICE_HOST = System.getenv("KUNDE_SERVICE_HOST");
     private static final String KUBERNETES = SERVICE_HOST == null
         ? "N/A"
@@ -56,7 +61,7 @@ final class Banner {
     static final String TEXT = """
 
         $figlet
-        (C) Juergen Zimmermann, Hochschule Karlsruhe
+        (C) 2025 Kilian Schmitt und Herr Zimmermann, Hochschule Karlsruhe
         Version             2025.10.1
         Spring Boot         $springBoot
         Spring Framework    $spring

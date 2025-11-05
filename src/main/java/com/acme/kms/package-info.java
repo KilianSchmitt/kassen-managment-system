@@ -16,4 +16,4 @@
  */
 
 /// Microservice _kunde_.
-package com.acme.patientverwaltung;
+package com.acme.kms;
