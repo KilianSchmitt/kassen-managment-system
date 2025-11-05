@@ -11,26 +11,26 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
-@SuppressWarnings({"checkstyle:all", "PMD"})
+@SuppressWarnings("all")
 public class MockDB {
     private static final List<Kasse> KASSEN = new ArrayList<>();
 
     static {
-        Kassierer kassierer1 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "Kilian Schmitt");
-        Kassierer kassierer2 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"), "Herr Zimmermann");
+        final Kassierer kassierer1 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "Kilian Schmitt");
+        final Kassierer kassierer2 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"), "Herr Zimmermann");
 
-        KassenBon kassenBon1 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-426614174321"), LocalDate.of(2025, 1, 29), new BigDecimal("50.80"));
-        KassenBon kassenBon2 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-425814174001"), LocalDate.of(2025, 1, 29), new BigDecimal("300"));
-        KassenBon kassenBon3 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-444614174001"), LocalDate.of(2025, 1, 29), new BigDecimal("0.98"));
+        final KassenBon kassenBon1 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-426614174321"), LocalDate.of(2025, 1, 29), new BigDecimal("50.80"));
+        final KassenBon kassenBon2 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-425814174001"), LocalDate.of(2025, 1, 29), new BigDecimal("300"));
+        final KassenBon kassenBon3 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-444614174001"), LocalDate.of(2025, 1, 29), new BigDecimal("0.98"));
 
-        Kasse kasse1 = new KasseBuilder()
+        final Kasse kasse1 = new KasseBuilder()
             .withId(UUID.fromString("123e4567-e89b-12d3-a456-426614174899"))
             .withKassierer(kassierer1)
             .addBon(kassenBon1)
             .addBon(kassenBon2)
             .build();
 
-        Kasse kasse2 = new KasseBuilder()
+        final Kasse kasse2 = new KasseBuilder()
             .withId(UUID.fromString("123e4567-e89b-12d3-a432-426614174000"))
             .withKassierer(kassierer2)
             .addBon(kassenBon3)
