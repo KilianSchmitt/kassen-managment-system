@@ -24,14 +24,14 @@ public class MockDB {
         final KassenBon kassenBon3 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-444614174001"), LocalDate.of(2025, 1, 29), new BigDecimal("0.98"));
 
         final Kasse kasse1 = new KasseBuilder()
-            .withId(UUID.fromString("123e4567-e89b-12d3-a456-426614174899"))
+            .withId(UUID.fromString("00000000-0000-0000-0000-000000000001"))
             .withKassierer(kassierer1)
             .addBon(kassenBon1)
             .addBon(kassenBon2)
             .build();
 
         final Kasse kasse2 = new KasseBuilder()
-            .withId(UUID.fromString("123e4567-e89b-12d3-a432-426614174000"))
+            .withId(UUID.fromString("00000000-0000-0000-0000-000000000002"))
             .withKassierer(kassierer2)
             .addBon(kassenBon3)
             .build();

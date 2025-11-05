@@ -30,6 +30,6 @@ class KasseController {
 
     @GetMapping
     Collection<Kasse> get(@RequestParam final Map<String, String> queryparam) {
-        return service.findAll();
+        return service.find(queryparam);
     }
 }
