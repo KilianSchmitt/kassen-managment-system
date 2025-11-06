@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(KasseController.API_PATH)
 class KasseController {
     static final String API_PATH = "/kassen";
-    static final String ID_PATTERN = "[\\da-f]{8}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{4}-[\\da-f]{12}";
     private final KasseService service;
 
     KasseController(final KasseService service) {
         this.service = service;
     }
 
-    @GetMapping(path = "{id:" + ID_PATTERN + "}")
+    @GetMapping(path = "{id}")
     Kasse getById(@PathVariable final UUID id) {
         return service.findById(id);
     }

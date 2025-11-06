@@ -2,7 +2,7 @@
 package com.acme.kms.service;
 
 import com.acme.kms.entity.Kasse;
-import com.acme.kms.repository.KassenRepository;
+import com.acme.kms.repository.KasseRepository;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 @Service
 @SuppressWarnings({"checkstyle:ReturnCount", "PMD.AvoidLiteralsInIfCondition"})
 public class KasseService {
-    private final KassenRepository repo;
+    private final KasseRepository repo;
 
-    public KasseService(final KassenRepository repo) {
+    public KasseService(final KasseRepository repo) {
         this.repo = repo;
     }
 

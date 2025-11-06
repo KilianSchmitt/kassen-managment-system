@@ -8,7 +8,7 @@ import static com.acme.kms.repository.MockDB.getKassen;
 
 @Repository
 @SuppressWarnings("PMD")
-public class KassenRepository {
+public class KasseRepository {
     public Collection<Kasse> findAll() {
         return getKassen();
     }
