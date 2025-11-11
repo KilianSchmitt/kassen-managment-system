@@ -41,3 +41,11 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Terraformed files ###
+*.tfstate
+*.tfstate.backup
+.terraform/
+crash.log
+.terraformrc
+terraform.rc
