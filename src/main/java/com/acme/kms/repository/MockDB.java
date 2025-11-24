@@ -13,12 +13,12 @@ import java.util.UUID;
 
 @SuppressWarnings("all")
 public class MockDB {
-    private static final List<Kasse> KASSEN = new ArrayList<>();
+    static final List<Kasse> KASSEN = new ArrayList<>();
 
     static {
-        final Kassierer kassierer1 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "Kilian Schmitt");
-        final Kassierer kassierer2 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"), "Herr Zimmermann");
-        final Kassierer kassierer3 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174002"), "Frau Müller");
+        final Kassierer kassierer1 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174000"), "Kilian", "Schmitt", "KilianSchmitt@acme.com");
+        final Kassierer kassierer2 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174001"), "Jürgen", "Zimmermann", "HerrZimmermann@acme.com");
+        final Kassierer kassierer3 = new Kassierer(UUID.fromString("123e4567-e89b-12d3-a456-426614174002"), "Max", "Muster", "MaxMuster@acme.com");
 
         final KassenBon kassenBon1 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-426614174321"), LocalDate.of(2025, 1, 29), new BigDecimal("50.80"));
         final KassenBon kassenBon2 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-425814174001"), LocalDate.of(2025, 1, 29), new BigDecimal("300"));
@@ -27,21 +27,27 @@ public class MockDB {
         final KassenBon kassenBon5 = new KassenBon(UUID.fromString("123e4567-e89b-12d3-a456-426614174323"), LocalDate.of(2025, 2, 2), new BigDecimal("15.75"));
 
         final Kasse kasse1 = new KasseBuilder()
-            .withId(UUID.fromString("00000000-0000-0000-0000-000000000001"))
-            .withKassierer(kassierer1)
-            .addBon(kassenBon1)
-            .addBon(kassenBon2)
-            .build();
+                .withId(UUID.fromString("00000000-0000-0000-0000-000000000001"))
+                .withBezeichnung("Kasse-1")
+                .withKassierer(kassierer1)
+                .withBargeldbestand(BigDecimal.valueOf(1000))
+                .addBon(kassenBon1)
+                .addBon(kassenBon2)
+                .build();
 
         final Kasse kasse2 = new KasseBuilder()
-            .withId(UUID.fromString("00000000-0000-0000-0000-000000000002"))
-            .withKassierer(kassierer2)
-            .addBon(kassenBon3)
-            .build();
+                .withId(UUID.fromString("00000000-0000-0000-0000-000000000002"))
+                .withBezeichnung("Kasse-2")
+                .withKassierer(kassierer2)
+                .withBargeldbestand(BigDecimal.valueOf(70.90))
+                .addBon(kassenBon3)
+                .build();
 
         final Kasse kasse3 = new KasseBuilder()
                 .withId(UUID.fromString("00000000-0000-0000-0000-000000000003"))
+                .withBezeichnung("Kasse-3")
                 .withKassierer(kassierer3)
+                .withBargeldbestand(BigDecimal.valueOf(300))
                 .addBon(kassenBon4)
                 .addBon(kassenBon5)
                 .build();

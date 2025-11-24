@@ -1,17 +1,22 @@
 package com.acme.kms.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Kasse {
     private UUID id;
+    private final String bezeichnung;
     private Kassierer kassierer;
+    private BigDecimal bargeldbestand;
     private List<KassenBon> kassenBons;
 
-    public Kasse(final UUID id, final Kassierer kassierer, final List<KassenBon> kassenBons) {
+    public Kasse(final UUID id, final String bezeichnung, final Kassierer kassierer, final BigDecimal bargeldbestand, final List<KassenBon> kassenBons) {
         this.id = id;
+        this.bezeichnung = bezeichnung;
         this.kassierer = kassierer;
+        this.bargeldbestand = bargeldbestand;
         this.kassenBons = kassenBons;
     }
 
@@ -29,6 +34,14 @@ public class Kasse {
         return id;
     }
 
+    public void setId(final UUID id) {
+        this.id = id;
+    }
+
+    public String getBezeichnung() {
+        return bezeichnung;
+    }
+
     public Kassierer getKassierer() {
         return kassierer;
     }
@@ -37,8 +50,12 @@ public class Kasse {
         return kassenBons;
     }
 
-    public void setId(final UUID id) {
-        this.id = id;
+    public BigDecimal getBargeldbestand() {
+        return bargeldbestand;
+    }
+
+    public void setBargeldbestand(final BigDecimal bargeldbestand) {
+        this.bargeldbestand = bargeldbestand;
     }
 
     public void setKassierer(final Kassierer kassierer) {

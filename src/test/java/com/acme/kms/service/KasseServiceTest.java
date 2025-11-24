@@ -72,7 +72,7 @@ public class KasseServiceTest {
         softly.assertThat(kassen)
             .isNotNull();
         kassen.stream()
-            .map(kasse -> kasse.getKassierer().getName())
+            .map(kasse -> kasse.getKassierer().getVorname())
             .forEach(name -> softly.assertThat(name)
                     .contains(KASSIERERNAME_VORHANDEN));
     }

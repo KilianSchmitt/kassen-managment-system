@@ -3,6 +3,8 @@ package com.acme.kms.repository;
 import com.acme.kms.entity.Kasse;
 import com.acme.kms.entity.KassenBon;
 import com.acme.kms.entity.Kassierer;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -10,7 +12,9 @@ import java.util.UUID;
 @SuppressWarnings("PMD")
 public class KasseBuilder {
     private UUID id;
+    private String bezeichnung;
     private Kassierer kassierer;
+    private BigDecimal bargeldbestand;
     private List<KassenBon> kassenBons = new ArrayList<>();
 
     public KasseBuilder withId(final UUID newId) {
@@ -18,8 +22,18 @@ public class KasseBuilder {
         return this;
     }
 
+    public KasseBuilder withBezeichnung(final String newBezeichnung) {
+        this.bezeichnung = newBezeichnung;
+        return this;
+    }
+
     public KasseBuilder withKassierer(final Kassierer newKassierer) {
         this.kassierer = newKassierer;
+        return this;
+    }
+
+    public KasseBuilder withBargeldbestand(final BigDecimal newBargeldbestand) {
+        this.bargeldbestand = newBargeldbestand;
         return this;
     }
 
@@ -35,6 +49,6 @@ public class KasseBuilder {
     }
 
     public Kasse build() {
-        return new Kasse(id, kassierer, kassenBons);
+        return new Kasse(id, bezeichnung, kassierer, bargeldbestand, kassenBons);
     }
 }
