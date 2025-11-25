@@ -6,7 +6,7 @@ public class KasseExistsException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 123456789L;
 
-    KasseExistsException(final String bezeichnung) {
+    public KasseExistsException(final String bezeichnung) {
         super("Die Kasse mit der Bezeichnung '" + bezeichnung + "' existiert bereits.");
     }
 

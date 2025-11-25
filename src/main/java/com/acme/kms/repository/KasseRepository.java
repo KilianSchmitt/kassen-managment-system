@@ -1,6 +1,7 @@
 package com.acme.kms.repository;
 
 import com.acme.kms.entity.Kasse;
+import com.acme.kms.service.KasseExistsException;
 import org.springframework.stereotype.Repository;
 import java.util.Collection;
 import java.util.Collections;
@@ -68,7 +69,22 @@ public class KasseRepository {
 
     public void update(final Kasse kasse, final UUID id) {
         final var indexOfKasse = KASSEN.indexOf(getById(id));
-        KASSEN.set(indexOfKasse, kasse);
+        final String orignalBezeichnung = KASSEN.get(indexOfKasse).getBezeichnung();
+
+        if (!orignalBezeichnung.equalsIgnoreCase(kasse.getBezeichnung())
+                && isKasseExisting(null, kasse.getBezeichnung())) {
+            throw new KasseExistsException(kasse.getBezeichnung());
+        }
+
+        final Kasse newKasse = new KasseBuilder()
+                .withId(id)
+                .withBezeichnung(kasse.getBezeichnung())
+                .withBargeldbestand(kasse.getBargeldbestand())
+                .withKassierer(kasse.getKassierer())
+                .withBons(kasse.getKassenBons())
+                .build();
+
+        KASSEN.set(indexOfKasse, newKasse);
     }
 
     public void delete(final UUID id) {

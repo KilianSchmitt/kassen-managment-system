@@ -22,9 +22,6 @@ public class KasseWriteService {
     }
 
     public void update(final Kasse kasse, final UUID id) {
-        if (repo.isKasseExisting(null, kasse.getBezeichnung()))
-            throw new KasseExistsException(kasse.getBezeichnung());
-
         repo.update(kasse, id);
     }
 
