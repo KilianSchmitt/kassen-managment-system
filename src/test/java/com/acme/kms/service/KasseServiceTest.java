@@ -21,7 +21,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DisplayName("Geschaeftslogik fuer Lesen testen")
 public class KasseServiceTest {
 
-    private static final String ID_VORHANDEN = "00000000-0000-0000-0000-000000000001";
+    private static final String ID_VORHANDEN = "00000000-0000-0000-0000-000000000002";
     private static final String KASSIERERNAME_VORHANDEN = "Kilian";
 
     private final KasseService service;
@@ -72,7 +72,7 @@ public class KasseServiceTest {
         softly.assertThat(kassen)
             .isNotNull();
         kassen.stream()
-            .map(kasse -> kasse.getKassierer().getName())
+            .map(kasse -> kasse.getKassierer().getVorname())
             .forEach(name -> softly.assertThat(name)
                     .contains(KASSIERERNAME_VORHANDEN));
     }

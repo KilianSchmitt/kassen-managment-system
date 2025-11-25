@@ -4,18 +4,24 @@ import java.util.UUID;
 
 public class Kassierer {
     private UUID id;
-    private String name;
+    private String vorname;
+    private String nachname;
+    private String email;
 
-    public Kassierer(final UUID id, final String name) {
+    public Kassierer(final UUID id, final String vorname, final String nachname, final String email) {
         this.id = id;
-        this.name = name;
+        this.vorname = vorname;
+        this.nachname = nachname;
+        this.email = email;
     }
 
     @Override
     public String toString() {
         return "Kassierer{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", vorname='" + vorname + '\'' +
+                ", nachname='" + nachname + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 
@@ -27,11 +33,27 @@ public class Kassierer {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getVorname() {
+        return vorname;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setVorname(final String vorname) {
+        this.vorname = vorname;
+    }
+
+    public String getNachname() {
+        return nachname;
+    }
+
+    public void setNachname(final String nachname) {
+        this.nachname = nachname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(final String email) {
+        this.email = email;
     }
 }
