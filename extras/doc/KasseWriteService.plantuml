@@ -1,0 +1,45 @@
+@startuml KasseWriteService
+skinparam classAttributeIconSize 0
+
+package org.springframework.stereotype {
+    annotation Service
+}
+
+package java.util {
+    class UUID
+}
+
+package com.acme.kms {
+    package entity {
+        class Kasse <<entity>>
+    }
+
+    package repository {
+        class KasseRepository <<control>> <<@Repository>>
+    }
+
+    package service #DDDDDD {
+        exception KasseExistsException
+        exception NotFoundException
+
+        class KasseWriteService <<control>> <<@Service>> {
+            + create(kasse: Kasse): Kasse
+            + update(kasse: Kasse, id: UUID)
+            + delete(id: UUID)
+        }
+
+        KasseWriteService o--> "1" KasseRepository : repo
+
+        KasseWriteService .right.> Kasse
+        KasseWriteService .up.> Service
+        KasseWriteService .up.> UUID
+
+        KasseWriteService ..> KasseExistsException
+        KasseWriteService ..> NotFoundException
+    }
+}
+
+hide empty members
+
+footer (c) Kilian Schmitt
+@enduml

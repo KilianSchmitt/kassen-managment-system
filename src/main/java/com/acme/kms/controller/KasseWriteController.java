@@ -39,6 +39,7 @@ class KasseWriteController {
     /// verletzt sind oder die Kasse bereits existiert oder Statuscode `409`, falls syntaktische Fehler im
     /// Request-Body vorliegen.
     @PostMapping
+    @Operation(summary = "Eine neue Kasse anlegen", tags = "Neuanlegen")
     @ApiResponse(responseCode = "201", description = "Kasse neu angelegt")
     @ApiResponse(responseCode = "400", description = "Syntaktische Fehler im Request-Body")
     @ApiResponse(responseCode = "409", description = "Kasse vorhanden")
@@ -74,9 +75,8 @@ class KasseWriteController {
     /// @param id Die ID der zu löschenden Kasse.
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(NO_CONTENT)
+    @Operation(summary = "Einen Kunden anhand der ID loeschen", tags = "Loeschen")
     @ApiResponse(responseCode = "204", description = "Gelöscht")
-    @ApiResponse(responseCode = "400", description = "Syntaktische Fehler im Request-Body")
-    @ApiResponse(responseCode = "404", description = "Kasse nicht vorhanden")
     void deleteByID(@PathVariable final UUID id) {
         getLogger().debug("Deleting Kasse {}", id);
         service.delete(id);

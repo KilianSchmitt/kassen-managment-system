@@ -1,0 +1,15 @@
+@startuml Sequenzdiagramm
+
+actor Client
+
+boundary KasseController
+control KasseService
+control KasseRepository
+
+Client -> KasseController : GET / getById()
+KasseController -> KasseService: findById()
+KasseService -> KasseRepository: findById()
+
+footer (c) Jürgen Zimmermann
+
+@enduml

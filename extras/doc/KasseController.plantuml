@@ -1,0 +1,63 @@
+@startuml KasseController
+skinparam classAttributeIconSize 0
+
+package org.springframework {
+    package web.bind.annotation {
+        annotation RestController
+        annotation RequestMapping
+        annotation PathVariable
+        annotation RequestParam
+        annotation ExceptionHandler
+        annotation ResponseStatus
+        annotation RestControllerAdvice
+    }
+    package http {
+        class ProblemDetail
+    }
+}
+
+package java.util {
+    interface Collection
+    class Map
+    class UUID
+}
+
+package com.acme.kms {
+    package entity {
+        class Kasse
+    }
+    package service {
+        class KasseService <<control>> <<@Service>>
+        exception NotFoundException
+        exception KasseExistsException
+        class RestExceptionHandler <<@RestControllerAdvice>>
+    }
+    package controller #DDDDDD {
+        class KasseController <<boundary>> <<@RestController>> <<@RequestMapping>> {
+            ~ @GetMapping getById(@PathVariable id: UUID): Kasse
+            ~ @GetMapping get(@RequestParam queryparam: Map<String, String>): Collection<Kasse>
+        }
+
+        KasseController o--> "1" KasseService : service
+        KasseController .up.> RestController
+        KasseController .up.> RequestMapping
+        KasseController .up.> PathVariable
+        KasseController .up.> RequestParam
+        KasseController .right.> UUID
+        KasseController ..> Collection
+        KasseController ..> Map
+        KasseController .down.> Kasse
+
+        RestExceptionHandler .up.> RestControllerAdvice
+        RestExceptionHandler .up.> ExceptionHandler
+        RestExceptionHandler .up.> ResponseStatus
+        RestExceptionHandler ..> NotFoundException
+        RestExceptionHandler ..> KasseExistsException
+        RestExceptionHandler ..> ProblemDetail
+    }
+}
+
+hide empty members
+
+footer (c) Kilian Schmitt
+@enduml

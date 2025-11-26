@@ -1,0 +1,16 @@
+@startuml Use Cases
+
+left to right direction
+
+actor Benutzer
+
+rectangle kasse {
+    Benutzer --> (Kasse anlegen)
+    Benutzer --> (Kasse suchen)
+    Benutzer --> (Kasse ändern)
+    Benutzer --> (Kasse löschen)
+}
+
+footer (c) Kilian Schmitt
+
+@enduml

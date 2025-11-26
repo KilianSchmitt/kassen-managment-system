@@ -1,0 +1,79 @@
+= Projekthandbuch
+:doctype: book
+:toc: left
+:sectanchors:
+:sectlinks:
+:sectnums:
+:pagenums:
+:source-highlighter: rouge
+:icons: font
+
+== Der Microservice Kasse
+
+=== Der Microservice im Überblick
+
+Der Microservice "Kasse" dient zur Verwaltung von Kasseninformationen. Er bietet eine RESTful-API für CRUD-Operationen und nutzt Spring Boot als Framework. Die Geschäftslogik ist in Service-Klassen gekapselt, während die Datenhaltung über Repository-Klassen erfolgt.
+
+.Use Cases für den Microservice "kasse"
+[plantuml,use-cases,svg]
+----
+include::./use-cases.plantuml[]
+----
+
+Der Microservice ermöglicht Benutzern das Anlegen, Suchen, Ändern und Löschen von Kassen. Administratoren haben erweiterte Rechte für alle Operationen.
+
+.Komponenten des Microservice "kasse"
+[plantuml,komponenten,svg]
+----
+include::./komponenten.plantuml[]
+----
+
+=== Die REST-Schnittstelle
+
+Die REST-Schnittstelle des Microservices ist aufgeteilt in Lese- und Schreibzugriffe. Der `KasseController` behandelt HTTP GET-Requests, während der `KasseWriteController` POST, PUT und DELETE-Requests verarbeitet.
+
+."KasseController" für Lesezugriffe an der REST-Schnittstelle
+[plantuml,KasseController,svg]
+----
+include::./KasseController.plantuml[]
+----
+
+Der `KasseController` bietet Endpunkte zum Abrufen von Kassen anhand ihrer ID oder über Suchparameter.
+
+."KasseWriteController" für Schreibzugriffe an der REST-Schnittstelle
+[plantuml,KasseWriteController,svg]
+----
+include::./KasseWriteController.plantuml[]
+----
+
+Der `KasseWriteController` ermöglicht das Anlegen neuer Kassen, das Aktualisieren bestehender Kassen und das Löschen von Kassen.
+
+=== Die Geschäftslogik
+
+Die Geschäftslogik ist in Service-Klassen implementiert, die die Validierung und Verarbeitung der Geschäftsregeln übernehmen.
+
+.Die Service-Klasse "KasseService" für die Geschäftslogik
+[plantuml,KasseService,svg]
+----
+include::./KasseService.plantuml[]
+----
+
+Der `KasseService` verwaltet Lesezugriffe und stellt Methoden zum Suchen von Kassen bereit.
+
+.Die Service-Klasse "KasseWriteService" für die Geschäftslogik
+[plantuml,KasseWriteService,svg]
+----
+include::./KasseWriteService.plantuml[]
+----
+
+Der `KasseWriteService` behandelt Schreiboperationen und prüft Geschäftsregeln wie die Eindeutigkeit der Bezeichnung.
+
+=== Die Entity-Klassen
+
+Die Entity-Klasse `Kasse` repräsentiert die Datenstruktur für Kasseninformationen.
+
+.Die Entity-Klasse "Kasse" für Kassendaten
+[plantuml,Kasse,svg]
+----
+include::./Kasse.plantuml[]
+----
