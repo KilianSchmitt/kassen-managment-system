@@ -9,6 +9,12 @@ import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.List;
 
+/// ValueObject für das Neuanlegen und Ändern einer Kasse. Beim Lesen wird die Klasse KasseModel für die Ausgabe
+/// verwendet.
+/// @param bezeichnung Die Bezeichnung der Kasse.
+/// @param kassierer Der Kassierer der Kasse.
+/// @param bargeldbestand Der Bargeldbestand der Kasse.
+/// @param kassenBons Die Liste der Kassenbons der Kasse.
 public record KasseDTO(
         @NotBlank
         String bezeichnung,

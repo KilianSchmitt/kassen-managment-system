@@ -1,0 +1,68 @@
+' Copyright (C) 2024 - present Kilian Schmitt, Hochschule Karlsruhe
+' This program is free software: you can redistribute it and/or modify
+' it under the terms of the GNU General Public License as published by
+' the Free Software Foundation, either version 3 of the License, or
+' (at your option) any later version.
+'
+' This program is distributed in the hope that it will be useful,
+' but WITHOUT ANY WARRANTY; without even the implied warranty of
+' MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+' GNU General Public License for more details.
+'
+' You should have received a copy of the GNU General Public License
+' along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+@startuml Kasse
+skinparam classAttributeIconSize 0
+
+package java {
+    package util {
+        class UUID
+        interface List<T>
+    }
+    package math {
+        class BigDecimal
+    }
+    package time {
+        class LocalDate
+    }
+}
+
+package com.acme.kms.entity #DDDDDD {
+    class Kasse <<entity>> {
+        id: UUID
+        bezeichnung: String
+        kassierer: Kassierer
+        bargeldbestand: BigDecimal
+        kassenBons: List<KassenBon>
+    }
+
+    class Kassierer {
+        id: UUID
+        vorname: String
+        nachname: String
+        email: String
+    }
+
+    class KassenBon {
+        id: UUID
+        date: LocalDate
+        betrag: BigDecimal
+    }
+
+    Kasse *-- "0..*" KassenBon : kassenBons
+
+    Kasse ..> UUID
+    Kasse ..> BigDecimal
+    Kasse ..> List
+
+    Kassierer ..> UUID
+    KassenBon ..> UUID
+    KassenBon ..> LocalDate
+    KassenBon ..> BigDecimal
+}
+
+hide empty members
+
+footer (c) Kilian Schmitt
+@enduml

@@ -4,6 +4,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
+/// ValueObject für den Kassierer beim Neuanlegen und Ändern einer Kasse.
+/// @param vorname  Gültiger Vorname des Kassierers, d.h. mit einem geeigneten Muster.
+/// @param nachname Gültiger Nachname des Kassierers, d.h. mit einem geeigneten Muster.
+/// @param email    Email des Kassierers.
 public record KassiererDTO(
         @NotBlank
         @Pattern(regexp = VORNAME_PATTERN)

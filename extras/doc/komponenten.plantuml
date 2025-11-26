@@ -1,0 +1,32 @@
+@startuml Komponenten
+
+left to right direction
+
+package com.acme.kasse #DDDDDD {
+    package rest <<boundary>> #FFFFFF {
+        [@RestController\nKasseController] as KasseController
+    }
+
+    package service <<control>> #FFFFFF {
+        [@Service\nKasseService] as KasseService
+    }
+
+    package repository <<control>> #FFFFFF {
+        [@Repository\nKasseRepository] as KasseRepository
+    }
+
+    package entity <<entity>> #FFFFFF {
+        [Kasse]
+    }
+}
+
+RESTClient ~~> [KasseController]
+
+[KasseController] o--> [KasseService]
+[KasseService] o--> [KasseRepository]
+[KasseController] .up.> [Kasse]
+[KasseRepository] ..> [Kasse]
+
+footer (c) Kilian Schmitt
+
+@enduml

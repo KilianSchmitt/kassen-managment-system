@@ -7,6 +7,9 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+/// ValueObject für den Kassenbon beim Neuanlegen und Ändern einer Kasse.
+/// @param date  Das Datum des Kassenbons.
+/// @param betrag Der Betrag des Kassenbons.
 record KassenBonDTO(
         @NotNull
         @PastOrPresent

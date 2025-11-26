@@ -1,0 +1,47 @@
+@startuml KasseService
+skinparam classAttributeIconSize 0
+
+package org.springframework.stereotype {
+    annotation Service
+}
+
+package java.util {
+    interface Collection
+    interface Map
+    class UUID
+
+    UUID .left[hidden].> Service
+}
+
+package com.acme.kms {
+    package entity {
+        class Kasse <<entity>>
+        Kasse .up[hidden].> Collection
+    }
+
+    package repository {
+        class KasseRepository <<control>> <<@Repository>>
+    }
+
+    package service #DDDDDD {
+        exception NotFoundException
+
+        class KasseService <<control>> <<@Service>> {
+            + findById(id: UUID): Kasse
+            + find(queryparam: Map<String, String>): Collection<Kasse>
+        }
+
+        KasseService o--> KasseRepository : repo
+        KasseService .right.> Kasse
+        KasseService ..> Service
+        KasseService .up.> UUID
+        KasseService .up.> Collection
+        KasseService .up.> Map
+        KasseService ..> NotFoundException
+    }
+}
+
+hide empty members
+
+footer (c) Kilian Schmitt
+@enduml

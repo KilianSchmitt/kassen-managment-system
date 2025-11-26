@@ -1,0 +1,89 @@
+@startuml KasseWriteController
+skinparam classAttributeIconSize 0
+
+package org.springframework {
+    package stereotype {
+        annotation RestController
+    }
+
+    package web {
+        package bind {
+            package annotation {
+                annotation RequestMapping
+                annotation PathVariable
+                annotation RequestBody
+                annotation PostMapping
+                annotation PutMapping
+                annotation DeleteMapping
+                annotation ResponseStatus
+            }
+
+            RequestMapping .right[hidden].> PathVariable
+            RestController .right[hidden].> PathVariable
+        }
+    }
+
+    package http {
+        class ResponseEntity<T>
+    }
+
+    package validation.annotation {
+        annotation Validated
+    }
+}
+
+package jakarta.servlet.http {
+    interface HttpServletRequest
+}
+
+package java.util {
+    class UUID
+
+    UUID .up[hidden].> HttpServletRequest
+}
+
+package com.acme.kms {
+    package service {
+        class KasseWriteService <<control>> <<@Service>>
+        exception KasseExistsException
+        exception NotFoundException
+    }
+
+    package controller #DDDDDD {
+        class KasseDTO <<entity>>
+
+        class KasseWriteController <<boundary>> <<@RestController>> <<@RequestMapping>> {
+            ~ @PostMapping post(@RequestBody KasseDTO: KasseDTO, request: HttpServletRequest): ResponseEntity<Void>
+            ~ @PutMapping put(@PathVariable id: UUID, @RequestBody KasseDTO: KasseDTO)
+            ~ @DeleteMapping deleteById(@PathVariable id: UUID)
+        }
+
+        class KasseMapper
+
+        KasseWriteController o-down-> "1" KasseWriteService : service
+        KasseWriteController o-down-> "1" KasseMapper : mapper
+        KasseWriteController ..> KasseDTO
+        KasseWriteController ..> KasseExistsException
+        KasseWriteController ..> NotFoundException
+
+        KasseWriteController .up.> ResponseEntity
+        KasseWriteController .left.> HttpServletRequest
+        KasseWriteController .up.> RestController
+        KasseWriteController .up.> RequestMapping
+        KasseWriteController .up.> PathVariable
+        KasseWriteController .up.> RequestBody
+        KasseWriteController .up.> PostMapping
+        KasseWriteController .up.> PutMapping
+        KasseWriteController .up.> DeleteMapping
+        KasseWriteController .up.> ResponseStatus
+        KasseWriteController .up.> Validated
+        KasseWriteController .right.> UUID
+
+        KasseDTO .[hidden].> KasseWriteService
+    }
+}
+
+hide empty members
+
+footer (c) Kilian Schmitt
+@enduml
