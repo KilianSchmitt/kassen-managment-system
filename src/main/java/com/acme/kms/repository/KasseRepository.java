@@ -5,6 +5,8 @@ import com.acme.kms.service.KasseExistsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -16,15 +18,20 @@ import static com.acme.kms.repository.MockDB.getKassen;
 @Repository
 @SuppressWarnings("PMD")
 public class KasseRepository {
-    private static final Logger LOGGER = LoggerFactory.getLogger(KasseRepository.class);
+    private final StableValue<Logger> logger = StableValue.of();
 
+    /// Alle Kassen als Collection ermitteln.
+    /// @return Collection mit allen Kassen
     public Collection<Kasse> findAll() {
-        LOGGER.debug("findAll()");
+        getLogger().debug("findAll()");
         return getKassen();
     }
 
+    /// Kasse anhand von Suchparametern ermitteln
+    /// @param queryparam Suchparameter
+    /// @return Gefundene Kassen oder leere Collection
     public Collection<Kasse> find(final Map<String, String> queryparam) {
-        LOGGER.debug("find: queryparam={}", queryparam);
+        getLogger().debug("find: queryparam={}", queryparam);
         if (queryparam.isEmpty()) {
             return findAll();
         }
@@ -33,21 +40,25 @@ public class KasseRepository {
             final var idStr = queryparam.get("id");
             if (idStr != null && !idStr.isBlank()) {
                 final var kasse = getById(UUID.fromString(idStr.trim()));
-                LOGGER.debug("find: kasse={}", kasse);
+                getLogger().debug("find: kasse={}", kasse);
                 return kasse == null ? Collections.emptyList() : List.of(kasse);
             }
 
             final var kassiererName = queryparam.get("kassiererName");
             if (kassiererName != null && !kassiererName.isBlank()) {
-                LOGGER.debug("find: kassiererName={}", kassiererName);
+                getLogger().debug("find: kassiererName={}", kassiererName);
                 return findByKassiererName(kassiererName);
             }
         }
 
-        LOGGER.debug("find: wrong queryparam={}", queryparam);
+        getLogger().debug("find: wrong queryparam={}", queryparam);
         return Collections.emptyList();
     }
 
+    /// Einen Kasse anhand seiner ID suchen.
+    /// @param id Die Id der gesuchten Kasse
+    /// @return Gefundene Kasse oder null
+    @Nullable
     public Kasse getById(final UUID id) {
         return getKassen().stream()
                 .filter(kasse -> kasse.getId().equals(id))
@@ -55,37 +66,53 @@ public class KasseRepository {
                 .orElse(null);
     }
 
+    /// Kassen anhand des Kassierernamens ermitteln.
+    /// @param kassiererName Der Name des Kassierers
+    /// @return Gefundene Kassen oder leere Collection
+    @Nullable
     public List<Kasse> findByKassiererName(final String kassiererName) {
-        LOGGER.debug("findByKassiererName: kassiererName={}", kassiererName);
+        getLogger().debug("findByKassiererName: kassiererName={}", kassiererName);
         final var result = getKassen().stream()
                 .filter(kasse -> kasse.getKassierer().getVorname().contains(kassiererName) ||
                         kasse.getKassierer().getNachname().contains(kassiererName))
                 .toList();
-        LOGGER.debug("findByKassiererName: result={}", result);
+        getLogger().debug("findByKassiererName: result={}", result);
         return result;
     }
 
+    /// Abfrage, ob eine Kasse mit der gegebenen ID oder Bezeichnung existiert.
+    /// @param id ID der Kasse
+    /// @param bezeichnung Bezeichnung der Kasse
+    /// @return true, falls die Kasse existiert, sonst false
     public boolean isKasseExisting(final UUID id, final String bezeichnung) {
-        LOGGER.debug("isKasseExisting: uuid={}, bezeichnung={}", id, bezeichnung);
+        getLogger().debug("isKasseExisting: uuid={}, bezeichnung={}", id, bezeichnung);
         if (id != null) {
             return getById(id) != null;
         }
         final var result = getKassen().stream()
                 .anyMatch(kasse -> kasse.getBezeichnung().equalsIgnoreCase(bezeichnung));
-        LOGGER.debug("isKasseExisting: result={}", result);
+        getLogger().debug("isKasseExisting: result={}", result);
         return result;
     }
 
+    /// Neue Kasse anlegen.
+    /// @param kasse Zu erstellende Kasse
+    /// @return Erstellte Kasse
+    /// @throws KasseExistsException Es gibt bereits eine Kasse mit der Bezeichnung.
     public Kasse create(final Kasse kasse) {
-        LOGGER.debug("create: {}", kasse);
+        getLogger().debug("create: {}", kasse);
         kasse.setId(UUID.randomUUID());
         KASSEN.add(kasse);
-        LOGGER.debug("create: kasse={}", kasse);
+        getLogger().debug("create: kasse={}", kasse);
         return kasse;
     }
 
+    /// Vorhandene Kasse aktualisieren.
+    /// @param kasse Kasse mit den neuen Daten (ohne ID)
+    /// @param id ID der zu aktualisierenden Kasse
+    /// @throws KasseExistsException Es gibt bereits eine Kasse mit der Bezeichnung.
     public void update(final Kasse kasse, final UUID id) {
-        LOGGER.debug("update: kasse={}, id={}", kasse, id);
+        getLogger().debug("update: kasse={}, id={}", kasse, id);
         final var indexOfKasse = KASSEN.indexOf(getById(id));
         final String orignalBezeichnung = KASSEN.get(indexOfKasse).getBezeichnung();
 
@@ -102,13 +129,19 @@ public class KasseRepository {
                 .withBons(kasse.getKassenBons())
                 .build();
 
-        LOGGER.debug("update: newKasse={}", newKasse);
+        getLogger().debug("update: newKasse={}", newKasse);
         KASSEN.set(indexOfKasse, newKasse);
     }
 
+    /// Vorhandene Kasse löschen.
+    /// @param id Die ID der zu löschenden Kasse.
     public void delete(final UUID id) {
-        LOGGER.debug("delete: id={}", id);
+        getLogger().debug("delete: id={}", id);
         KASSEN.removeIf(kasse -> kasse.getId().equals(id));
+    }
+
+    private Logger getLogger() {
+        return logger.orElseSet(() -> LoggerFactory.getLogger(KasseRepository.class));
     }
 
 }
