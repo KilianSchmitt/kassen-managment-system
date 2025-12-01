@@ -24,10 +24,10 @@ package org.springframework {
     }
 
     package http {
-        class ResponseEntity<T>
+        class "ResponseEntity<T>" as ResponseEntity
     }
 
-    package validation.annotation {
+    package validation {
         annotation Validated
     }
 }
@@ -45,17 +45,17 @@ package java.util {
 package com.acme.kms {
     package service {
         class KasseWriteService <<control>> <<@Service>>
-        exception KasseExistsException
-        exception NotFoundException
+        class KasseExistsException <<exception>>
+        class NotFoundException <<exception>>
     }
 
     package controller #DDDDDD {
         class KasseDTO <<entity>>
 
         class KasseWriteController <<boundary>> <<@RestController>> <<@RequestMapping>> {
-            ~ @PostMapping post(@RequestBody KasseDTO: KasseDTO, request: HttpServletRequest): ResponseEntity<Void>
-            ~ @PutMapping put(@PathVariable id: UUID, @RequestBody KasseDTO: KasseDTO)
-            ~ @DeleteMapping deleteById(@PathVariable id: UUID)
+            ~ post(KasseDTO: KasseDTO, request: HttpServletRequest): ResponseEntity<Void> <<@PostMapping>>
+            ~ put(id: UUID, KasseDTO: KasseDTO) <<@PutMapping>>
+            ~ deleteById(id: UUID) <<@DeleteMapping>>
         }
 
         class KasseMapper

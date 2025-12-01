@@ -19,8 +19,8 @@ package com.acme.kms {
     }
 
     package service #DDDDDD {
-        exception KasseExistsException
-        exception NotFoundException
+        class KasseExistsException <<exception>>
+        class NotFoundException <<exception>>
 
         class KasseWriteService <<control>> <<@Service>> {
             + create(kasse: Kasse): Kasse

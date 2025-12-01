@@ -4,15 +4,15 @@ left to right direction
 
 package com.acme.kasse #DDDDDD {
     package rest <<boundary>> #FFFFFF {
-        [@RestController\nKasseController] as KasseController
+        [RestController\nKasseController] as KasseController
     }
 
     package service <<control>> #FFFFFF {
-        [@Service\nKasseService] as KasseService
+        [Service\nKasseService] as KasseService
     }
 
     package repository <<control>> #FFFFFF {
-        [@Repository\nKasseRepository] as KasseRepository
+        [Repository\nKasseRepository] as KasseRepository
     }
 
     package entity <<entity>> #FFFFFF {

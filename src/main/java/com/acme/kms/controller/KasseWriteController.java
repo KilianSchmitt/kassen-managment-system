@@ -16,6 +16,9 @@ import java.util.UUID;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.ResponseEntity.created;
 
+/// Eine Controller-Klasse bildet die REST-Schnittstelle, wobei die HTTP-Methoden, Pfade und MIME-Typen auf die
+/// Methoden der Klasse abgebildet werden.
+/// ![Klassendiagramm](/docs/asciidoc/KasseWriteController.svg)
 @RestController
 @Validated
 @RequestMapping("/kassen")

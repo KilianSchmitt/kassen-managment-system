@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/// Eine Service-Klasse kapselt die Geschäftslogik und wird von der Controller-Klasse genutzt.
+/// Methoden dieser Klasse werden von der REST-Schnittstelle aufgerufen.
+/// ![Klassendiagramm](/docs/asciidoc/KasseWriteService.svg)
 @Service
 public class KasseWriteService {
     private final StableValue<Logger> logger = StableValue.of();

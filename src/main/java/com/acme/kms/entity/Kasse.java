@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+/// Diese Klasse repräsentiert eine Kasse im System.
+/// ![Klassendiagramm](/docs/asciidoc/Kasse.svg)
 public class Kasse {
     private UUID id;
     private final String bezeichnung;

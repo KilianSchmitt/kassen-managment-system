@@ -13,6 +13,9 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 
+/// Eine Controller-Klasse bildet die REST-Schnittstelle, wobei die HTTP-Methoden, Pfade und MIME-Typen auf die
+/// Methoden der Klasse abgebildet werden.
+/// ![Klassendiagramm](/docs/asciidoc/KasseController.svg)
 @RestController
 @RequestMapping(KasseController.API_PATH)
 @OpenAPIDefinition(info = @Info(title = "Kasse API"))

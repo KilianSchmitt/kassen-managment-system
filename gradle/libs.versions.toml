@@ -18,8 +18,8 @@
 
 # table = Schluessel/Wert-Paare
 [versions]
-spring-boot = "4.0.0-RC1"
-spring-bootPlugin = "4.0.0-RC1"
+spring-boot = "4.0.0"
+spring-bootPlugin = "4.0.0"
 
 cdi = "4.1.0"
 guava = "33.5.0-jre"
