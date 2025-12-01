@@ -12,7 +12,7 @@
 
 === Der Microservice im Überblick
 
-Der Microservice "Kasse" dient zur Verwaltung von Kasseninformationen. Er bietet eine RESTful-API für CRUD-Operationen und nutzt Spring Boot als Framework. Die Geschäftslogik ist in Service-Klassen gekapselt, während die Datenhaltung über Repository-Klassen erfolgt.
+Der Microservice "Kasse" dient zur Verwaltung von Kasseninformationen. Er bietet eine REST-API für CRUD-Operationen und nutzt Spring Boot als Framework. Die Geschäftslogik ist in Service-Klassen gekapselt, während die Datenhaltung über Repository-Klassen erfolgt.
 
 .Use Cases für den Microservice "kasse"
 [plantuml,use-cases,svg]

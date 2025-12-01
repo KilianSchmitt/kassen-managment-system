@@ -24,7 +24,7 @@ package com.acme.kms {
     }
 
     package service #DDDDDD {
-        exception NotFoundException
+        class NotFoundException <<exception>>
 
         class KasseService <<control>> <<@Service>> {
             + findById(id: UUID): Kasse

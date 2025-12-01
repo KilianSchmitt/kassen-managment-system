@@ -28,8 +28,8 @@ package com.acme.kms {
     }
     package service {
         class KasseService <<control>> <<@Service>>
-        exception NotFoundException
-        exception KasseExistsException
+        class NotFoundException <<exception>>
+        class KasseExistsException <<exception>>
         class RestExceptionHandler <<@RestControllerAdvice>>
     }
     package controller #DDDDDD {
