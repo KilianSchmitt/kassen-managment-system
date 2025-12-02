@@ -1,0 +1,3 @@
+CREATE SCHEMA IF NOT EXISTS AUTHORIZATION kms;
+
+ALTER ROLE kms SET search_path = 'kms';
