@@ -7,7 +7,7 @@ VALUES
     ('30000000-0000-0000-0000-000000000004', 'Kilian', 'Schmitt', 'kilian.schmitt@acme.com'),
     ('30000000-0000-0000-0000-000000000005', 'Jürgen', 'Zimmermann', 'jürgen.zimmermann@acme.com');
 
-INSERT INTO Kasse (id, bezeichnung, kassierer, bargeldbestand)
+INSERT INTO Kasse (id, bezeichnung, kassierer_id, bargeldbestand)
 VALUES
     ('40000000-0000-0000-0000-000000000000', 'Kasse 1', '30000000-0000-0000-0000-000000000000', 1000.00),
     ('40000000-0000-0000-0000-000000000001', 'Kasse 2', '30000000-0000-0000-0000-000000000001', 1500.00),

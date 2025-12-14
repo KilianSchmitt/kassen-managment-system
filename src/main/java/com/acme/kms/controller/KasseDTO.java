@@ -24,6 +24,7 @@ public record KasseDTO(
         KassiererDTO kassierer,
 
         @PositiveOrZero
+        @NotNull
         BigDecimal bargeldbestand,
 
         @UniqueElements

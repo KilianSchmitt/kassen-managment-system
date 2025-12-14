@@ -16,6 +16,7 @@ public class KasseBuilder {
     private Kassierer kassierer;
     private BigDecimal bargeldbestand;
     private List<KassenBon> kassenBons = new ArrayList<>();
+    private int version;
 
     public KasseBuilder withId(final UUID newId) {
         this.id = newId;
@@ -49,6 +50,6 @@ public class KasseBuilder {
     }
 
     public Kasse build() {
-        return new Kasse(id, bezeichnung, kassierer, bargeldbestand, kassenBons);
+        return new Kasse(id, bezeichnung, kassierer, bargeldbestand, kassenBons, version);
     }
 }

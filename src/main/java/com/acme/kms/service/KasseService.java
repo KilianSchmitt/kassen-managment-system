@@ -22,31 +22,30 @@ public class KasseService {
         this.repo = repo;
     }
 
-    /// Kassen anhand von Suchparametern ermitteln.
-    /// @param queryparam Query-Parameter als Map.
-    /// @return Gefundene Kassen als [Collection].
-    /// @throws NotFoundException Keine Kasse gefunden.
-    public Collection<Kasse> find(final Map<String, String> queryparam) {
-        getLogger().debug("find: Queryparameter={}", queryparam);
-        final var kassen = repo.find(queryparam);
-        if (kassen.isEmpty()) {
-            throw new NotFoundException();
-        }
-        getLogger().debug("find: Kasse={}", kassen);
-        return kassen;
-    }
 
-    /// Eine Kasse anhand ihrer ID suchen.
-    /// @param id ID der zu suchenden Kasse
-    /// @return Gefundene Kasse.
-    /// @throws NotFoundException Kasse nicht gefunden.
-    public Kasse findById(final UUID id) {
-        getLogger().debug("findById: id={}", id);
-        final var kasse = repo.getById(id);
+    public Kasse findByIdMitKassierer(final UUID id) {
+        getLogger().debug("findByIdMitKassierer: id={}", id);
+
+        final var kasse = repo.findByIdFetchKassierer(id);
+        getLogger().trace("findByIdMitKassierer: kasse={}", kasse);
+
         if (kasse == null) {
             throw new NotFoundException();
         }
-        getLogger().debug("findById: kasse={}", kasse);
+        getLogger().debug("findByIdMitKassierer: kasse={}", kasse);
+        return kasse;
+    }
+
+    public Kasse findByIdMitKassiererUndKassenbons(final UUID id) {
+        getLogger().debug("findByIdMitKassiererAndKassenbons: id={}", id);
+
+        final var kasse = repo.findByIdFetchKassiererAndKassenbons(id);
+        getLogger().trace("findByIdMitKassiererAndKassenbons: kasse={}", kasse);
+
+        if (kasse == null) {
+            throw new NotFoundException();
+        }
+        getLogger().debug("findByIdMitKassiererAndKassenbons: kasse={}, kassenbons={}", kasse, kasse.getKassenBons());
         return kasse;
     }
 
