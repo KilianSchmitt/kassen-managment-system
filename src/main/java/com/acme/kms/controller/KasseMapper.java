@@ -11,8 +11,10 @@ interface KasseMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "version", ignore = true)
     Kasse toKasse(KasseDTO dto);
+
     @Mapping(target = "id", ignore = true)
     Kassierer toKassierer(KassiererDTO dto);
+
     @Mapping(target = "id", ignore = true)
     KassenBon toKassenBon(KassenBonDTO dto);
 }

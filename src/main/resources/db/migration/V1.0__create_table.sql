@@ -12,7 +12,9 @@ CREATE TABLE IF NOT EXISTS kasse (
     version             INTEGER NOT NULL DEFAULT 0,
     bezeichnung         TEXT NOT NULL,
     kassierer_id        UUID REFERENCES kassierer,
-    bargeldbestand      NUMERIC(10,2) NOT NULL
+    bargeldbestand      NUMERIC(10,2) NOT NULL,
+    erzeugt       TIMESTAMP NOT NULL,
+    aktualisiert  TIMESTAMP NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS kassenbon (

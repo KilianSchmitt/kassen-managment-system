@@ -1,12 +1,14 @@
 package com.acme.kms.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.jspecify.annotations.Nullable;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -55,6 +57,14 @@ public class Kasse {
     @Version
     private int version;
 
+    @CreationTimestamp
+    @Nullable
+    private LocalDateTime erzeugt;
+
+    @UpdateTimestamp
+    @Nullable
+    private LocalDateTime aktualisiert;
+
     // Standard-Konstruktor für _Jakarta Persistence_.
     @SuppressWarnings("NullAway.Init")
     public Kasse(String bezeichnung) {
@@ -95,6 +105,10 @@ public class Kasse {
         return bezeichnung;
     }
 
+    public void setBezeichnung(final String bezeichnung) {
+        this.bezeichnung = bezeichnung;
+    }
+
     public Kassierer getKassierer() {
         return kassierer;
     }
@@ -125,5 +139,17 @@ public class Kasse {
 
     public void setVersion(final int version) {
         this.version = version;
+    }
+
+    public @Nullable LocalDateTime getAktualisiert() {
+        return aktualisiert;
+    }
+
+    public @Nullable LocalDateTime getErzeugt() {
+        return erzeugt;
+    }
+
+    public void setAktualisiert(@Nullable LocalDateTime aktualisiert) {
+        this.aktualisiert = aktualisiert;
     }
 }
