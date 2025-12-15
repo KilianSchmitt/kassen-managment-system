@@ -50,7 +50,6 @@ public class Kasse {
     @OneToMany(cascade = {PERSIST, REMOVE}, orphanRemoval = true)
     @JoinColumn(name = "kasse_id")
     @OrderColumn(name = "idx", nullable = false)
-    @JsonIgnore
     private List<KassenBon> kassenBons;
 
     @Version

@@ -25,7 +25,7 @@ import static com.acme.kms.config.DevConfig.DEV;
 /// @author [Jürgen Zimmermann](mailto:Juergen.Zimmermann@h-ka.de)
 @Profile(DEV)
 @SuppressWarnings({"ClassNamePrefixedWithPackageName", "HideUtilityClassConstructor"})
-public final class DevConfig implements TomcatHttpConnector, LogRequestHeaders, K8s {
+public final class DevConfig implements TomcatHttpConnector, Flyway, LogRequestHeaders, K8s {
     /// Konstante für das Spring-Profile `dev`.
     public static final String DEV = "dev";
 

@@ -185,7 +185,7 @@ public interface KasseRepository extends JpaRepository<Kasse, UUID>, JpaSpecific
         """)
     @EntityGraph(KASSIERER_KASSENBONS_GRAPH)
     @Nullable
-    Kasse findByIdFetchKassiererAndKassenbons(UUID id);
+    Kasse findByIdFetchKassiererUndKassenbons(UUID id);
 
     @Query("""
         SELECT kasse

@@ -77,9 +77,9 @@ spring:
   # ==============================================================================
   # https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.data
   datasource:
-    username: Change Me! # als System-Property oder Umgebungsvariable
-    password: Change Me! # als System-Property oder Umgebungsvariable
-    url: Change Me! # als System-Property oder Umgebungsvariable
+    username: postgres # als System-Property oder Umgebungsvariable
+    password: p # als System-Property oder Umgebungsvariable
+    url: jdbc:postgresql://localhost:5432/kms # als System-Property oder Umgebungsvariable
 
   # https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.data-migration
   flyway.create-schemas: false

@@ -3,6 +3,7 @@ package com.acme.kms.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
@@ -11,6 +12,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
+@Table(name = "kassenbon")
 public class KassenBon {
     @Id
     @GeneratedValue
