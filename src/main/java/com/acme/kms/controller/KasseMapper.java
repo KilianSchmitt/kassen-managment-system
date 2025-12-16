@@ -10,6 +10,7 @@ import org.mapstruct.Mapping;
 interface KasseMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "version", ignore = true)
+    @Mapping(target = "aktualisiert", ignore = true)
     Kasse toKasse(KasseDTO dto);
 
     @Mapping(target = "id", ignore = true)
