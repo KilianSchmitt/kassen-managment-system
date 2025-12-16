@@ -49,8 +49,8 @@ public class Kasse {
     private BigDecimal bargeldbestand;
 
     @Nullable
-    @OneToMany(cascade = {PERSIST, REMOVE}, orphanRemoval = true)
-    @JoinColumn(name = "kasse_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "kasse_id", nullable = false)
     @OrderColumn(name = "idx", nullable = false)
     private List<KassenBon> kassenBons;
 
@@ -151,5 +151,10 @@ public class Kasse {
 
     public void setAktualisiert(@Nullable LocalDateTime aktualisiert) {
         this.aktualisiert = aktualisiert;
+    }
+
+    public void set(final Kasse other) {
+        this.bezeichnung = other.bezeichnung;
+        this.bargeldbestand = other.bargeldbestand;
     }
 }
