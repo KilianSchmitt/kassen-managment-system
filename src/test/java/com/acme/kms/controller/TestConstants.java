@@ -41,7 +41,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 final class TestConstants {
     static final String SCHEMA = "https";
     static final String HOST = "localhost";
-    static final String VERSION_1 = "1.0.0";
+    static final String VERSION_2 = "2.0.0";
     static final ApiVersionInserter API_VERSION_INSERTER = ApiVersionInserter.useHeader("X-Version");
 
     static final ClientHttpRequestFactory REQUEST_FACTORY;
@@ -73,9 +73,9 @@ final class TestConstants {
         }
 
         final var httpClient = HttpClient.newBuilder()
-                .sslContext(sslContext)
-                .connectTimeout(Duration.ofSeconds(TIMEOUT_IN_SECONDS))
-                .build();
+            .sslContext(sslContext)
+            .connectTimeout(Duration.ofSeconds(TIMEOUT_IN_SECONDS))
+            .build();
         final var jdkRequestFactory = new JdkClientHttpRequestFactory(httpClient);
         jdkRequestFactory.setReadTimeout(READ_TIMEOUT_IN_MILLIS);
         REQUEST_FACTORY = jdkRequestFactory;

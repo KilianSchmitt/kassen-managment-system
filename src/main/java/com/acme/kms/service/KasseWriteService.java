@@ -1,6 +1,7 @@
 package com.acme.kms.service;
 
 import com.acme.kms.entity.Kasse;
+import com.acme.kms.mail.MailService;
 import com.acme.kms.repository.KasseRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,13 +15,16 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 public class KasseWriteService {
     private final KasseRepository repo;
+    private final MailService mailService;
     private final StableValue<Logger> logger = StableValue.of();
 
     /// Konstruktor mit `package private` für _Constructor Injection_ bei _Spring_.
     ///
     /// @param repo Injiziertes Repository für _Spring Data_.
-    public KasseWriteService(KasseRepository repo) {
+    /// @param mailService Injiziertes Objekt für Mailing.
+    public KasseWriteService(KasseRepository repo, MailService mailService) {
         this.repo = repo;
+        this.mailService = mailService;
     }
 
     @Transactional
@@ -35,7 +39,7 @@ public class KasseWriteService {
         final var kasseDB = repo.save(kasse);
 
         getLogger().trace("create: Thread-ID={}", Thread.currentThread().threadId());
-        // Optional: mailService.send(kasseDB);
+        mailService.send(kasseDB);
 
         getLogger().debug("create: kasseDB={}", kasseDB);
         return kasseDB;

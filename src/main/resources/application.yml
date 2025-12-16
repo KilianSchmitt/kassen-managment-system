@@ -307,7 +307,7 @@ spring:
   # ==============================================================================
   mail:
     host: localhost
-    port: 8025
+    port: 1025
 
   # https://stackoverflow.com/questions/53723613/how-to-set-enableloggingrequestdetails-true-in-spring-boot#answer-62817587
   mvc.log-request-details: true
@@ -329,8 +329,8 @@ management:
   #tracing.sampling.probability: 1
 
 server.tomcat:
-  max-connections: 20
-  threads.max: 20
+  max-connections: 128
+  threads.max: 96
 
 # ==============================================================================
 # L o g g i n g

@@ -129,7 +129,7 @@ val useObservability = project.properties["observability"] != "false" && project
 val useGraphQL = project.properties["graphql"] != "false" && project.properties["graphql"] != "FALSE"
 val useWebclient = project.properties["webclient"] != "false" && project.properties["webclient"] != "FALSE"
 
-val imagePath = project.properties["imagePath"] ?: "juergenzimmermann"
+val imagePath = project.properties["imagePath"] ?: "kilianschmitt"
 val paketoBuilder = project.properties["paketoBuilder"] as? String?
 val paketoRunImage = project.properties["paketoRunImage"] as? String?
 val alternativeBuildpack = project.properties["buildpack"]
