@@ -16,4 +16,4 @@
  */
 
 /// Tests für kunde.
-package com.acme.kms;
+package com.acme.kms.service;

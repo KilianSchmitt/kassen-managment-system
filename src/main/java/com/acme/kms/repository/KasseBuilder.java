@@ -43,9 +43,8 @@ public class KasseBuilder {
         return this;
     }
 
-
-    public KasseBuilder addBon(final KassenBon kassenBon) {
-        this.kassenBons.add(kassenBon);
+    public KasseBuilder withVersion(final int newVersion) {
+        this.version = newVersion;
         return this;
     }
 

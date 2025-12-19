@@ -30,12 +30,11 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-import static com.acme.kms.entity.KassenBon_.betrag;
-
 /// Singleton-Klasse, um Specifications für Queries in Spring Data JPA zu bauen.
 ///
 /// @author [Jürgen Zimmermann](mailto:Juergen.Zimmermann@h-ka.de)
 @Component
+@SuppressWarnings("PMD.AvoidLiteralsInIfCondition")
 public class SpecificationBuilder {
     private final StableValue<Logger> logger = StableValue.of();
 
@@ -69,7 +68,6 @@ public class SpecificationBuilder {
             final Map.Entry<String, ? extends List<String>> entry
     ) {
         getLogger().trace("toSpec: entry={}", entry);
-        final var key = entry.getKey();
         final var values = entry.getValue();
 
         if (values.size() != 1) {
@@ -77,6 +75,7 @@ public class SpecificationBuilder {
         }
 
         final var value = values.getFirst();
+        final var key = entry.getKey();
         return switch (key) {
             case "bezeichnung" -> bezeichnung(value);
             case "bargeldbestand" -> bargeldbestand(value);

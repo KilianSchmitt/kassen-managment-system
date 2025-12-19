@@ -73,9 +73,6 @@ class KasseController {
         getLogger().trace("getByIdMitKassierer: id={}, ifNoneMatch={}", id, ifNoneMatch);
 
         final var kasse = service.findByIdMitKassierer(id);
-        if (kasse == null) {
-            return notFound().build();
-        }
         final var versionStr = "\"" + kasse.getVersion() + "\"";
         if (versionStr.equals(ifNoneMatch)) {
             return status(NOT_MODIFIED).build();
@@ -92,9 +89,6 @@ class KasseController {
         getLogger().trace("getByIdMitKassiererUndKassenbons: id={}, ifNoneMatch={}", id, ifNoneMatch);
 
         final var kasse = service.findByIdMitKassiererUndKassenbons(id);
-        if (kasse == null) {
-            return notFound().build();
-        }
         final var versionStr = "\"" + kasse.getVersion() + "\"";
         if (versionStr.equals(ifNoneMatch)) {
             return status(NOT_MODIFIED).build();

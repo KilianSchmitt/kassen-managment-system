@@ -50,7 +50,7 @@ public class RestExceptionHandler {
     /// @param ex Die zugehörige [DataIntegrityViolationException].
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ProblemDetail handleDataIntegrityViolationException(final DataIntegrityViolationException ex) {
-        String message = ex.getMessage();
+        final String message = ex.getMessage();
 
         if (message != null && message.contains("kassierer_email_key")) {
             return ProblemDetail.forStatusAndDetail(

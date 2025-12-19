@@ -2,15 +2,8 @@ package com.acme.kms.controller;
 
 import com.acme.kms.entity.Kasse;
 import com.acme.kms.entity.Kassierer;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
 
 /// ValueObject für die Darstellung einer Kasse ohne die zugehörigen Kassenbons.
@@ -18,13 +11,13 @@ import java.util.UUID;
 /// @param bezeichnung Die Bezeichnung der Kasse.
 /// @param kassierer Der Kassierer der Kasse.
 /// @param bargeldbestand Der Bargeldbestand der Kasse.
-public record KasseOhneKassenbons (
+public record KasseOhneKassenbons(
         @Nullable UUID id,
         String bezeichnung,
         @Nullable Kassierer kassierer,
         BigDecimal bargeldbestand
 ) {
-    static KasseOhneKassenbons of (final Kasse kasse) {
+    static KasseOhneKassenbons of(final Kasse kasse) {
         return new KasseOhneKassenbons(
                 kasse.getId(),
                 kasse.getBezeichnung(),

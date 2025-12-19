@@ -34,7 +34,7 @@ public class KasseService {
     /// @param pageable Seitennummerierung mit Spring Data.
     /// @return Die gefundenen Kunden oder eine leere Liste.
     /// @throws NotFoundException Falls keine Kunden gefunden wurden.
-    @SuppressWarnings({"ReturnCount", "PMD.AvoidLiteralsInIfCondition", "PMD.CyclomaticComplexity"})
+    @SuppressWarnings({"ReturnCount", "PMD.AvoidLiteralsInIfCondition"})
     public Page<Kasse> find(final Map<String, List<String>> suchparameter, final Pageable pageable) {
         getLogger().debug("find: suchparameter={}, pageable={}", suchparameter, pageable);
 

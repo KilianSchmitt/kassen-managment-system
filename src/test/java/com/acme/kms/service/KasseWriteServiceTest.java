@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.condition.EnabledForJreRange;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.aggregator.ArgumentsAccessor;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
@@ -40,17 +39,17 @@ import static org.mockito.Mockito.when;
 @ExtendWith({MockitoExtension.class, SoftAssertionsExtension.class})
 @EnabledForJreRange(min = JAVA_25, max = JAVA_25)
 @SuppressWarnings({
-        "InnerTypeLast",
-        "ClassFanOutComplexity",
-        "MethodOnlyUsedFromInnerClass",
-        "WriteTag",
-        "PMD.AtLeastOneConstructor",
-        "PMD.AvoidDuplicateLiterals"
+    "InnerTypeLast",
+    "ClassFanOutComplexity",
+    "MethodOnlyUsedFromInnerClass",
+    "WriteTag",
+    "PMD.AtLeastOneConstructor"
 })
-class KundeWriteServiceTest {
+class KasseWriteServiceTest {
     private static final String BEZEICHNUNG = "Kasse 999";
     private static final String BEZEICHNUNG_VORHANDEN = "Kasse 1";
     private static final String ID_VORHANDEN = "40000000-0000-0000-0000-000000000001";
+    private static final BigDecimal BARGELDBESTAND_STANDARD = BigDecimal.valueOf(1000.00);
 
     @Mock
     @SuppressWarnings("NullAway.Init")
@@ -187,13 +186,13 @@ class KundeWriteServiceTest {
     }
 
     private Kasse createKasseMock(final UUID id, final String bezeichnung) {
-        return createKasseMock(id, bezeichnung, new BigDecimal(1000));
+        return createKasseMock(id, bezeichnung, BARGELDBESTAND_STANDARD);
     }
 
     private Kasse createKasseMock(
             final UUID id,
             final String bezeichnung,
-            final java.math.BigDecimal bargeldbestand
+            final BigDecimal bargeldbestand
     ) {
         return new KasseBuilder()
                 .withId(id)

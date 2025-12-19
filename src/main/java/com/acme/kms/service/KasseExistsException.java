@@ -1,7 +1,5 @@
 package com.acme.kms.service;
 
-import jakarta.validation.constraints.NotNull;
-
 import java.io.Serial;
 
 public class KasseExistsException extends RuntimeException {

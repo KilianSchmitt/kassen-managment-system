@@ -19,14 +19,10 @@ import static jakarta.persistence.FetchType.LAZY;
 
 /// Diese Klasse repräsentiert eine Kasse im System.
 /// ![Klassendiagramm](/docs/asciidoc/Kasse.svg)
-
 @Entity
 @NamedEntityGraph(name = Kasse.KASSIERER_GRAPH, attributeNodes = @NamedAttributeNode("kassierer"))
 @NamedEntityGraph(name = Kasse.KASSIERER_KASSENBONS_GRAPH,
-        attributeNodes = {
-                @NamedAttributeNode("kassierer"),
-                @NamedAttributeNode("kassenBons")
-        }
+        attributeNodes = {@NamedAttributeNode("kassierer"), @NamedAttributeNode("kassenBons")}
 )
 public class Kasse {
     public static final String KASSIERER_GRAPH = "Kasse.kassierer";
@@ -67,14 +63,21 @@ public class Kasse {
 
     // Standard-Konstruktor für _Jakarta Persistence_.
     @SuppressWarnings("NullAway.Init")
-    public Kasse(String bezeichnung) {
+    public Kasse(final String bezeichnung) {
     }
 
     @SuppressWarnings("NullAway.Init")
     public Kasse() {
     }
 
-    public Kasse(final UUID id, final String bezeichnung, final Kassierer kassierer, final BigDecimal bargeldbestand, final List<KassenBon> kassenBons, final int version) {
+    public Kasse(
+            final UUID id,
+            final String bezeichnung,
+            final Kassierer kassierer,
+            final BigDecimal bargeldbestand,
+            final List<KassenBon> kassenBons,
+            final int version
+    ) {
         this.id = id;
         this.bezeichnung = bezeichnung;
         this.kassierer = kassierer;
@@ -149,7 +152,7 @@ public class Kasse {
         return erzeugt;
     }
 
-    public void setAktualisiert(@Nullable LocalDateTime aktualisiert) {
+    public void setAktualisiert(final @Nullable LocalDateTime aktualisiert) {
         this.aktualisiert = aktualisiert;
     }
 

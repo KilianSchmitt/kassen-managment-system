@@ -1,4 +1,4 @@
-package com.acme.kms.repository;//package com.acme.kms.repository;
+package com.acme.kms.repository;
 
 import com.acme.kms.entity.Kasse;
 import org.jspecify.annotations.Nullable;

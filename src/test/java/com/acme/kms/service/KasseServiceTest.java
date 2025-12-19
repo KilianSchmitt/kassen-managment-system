@@ -1,28 +1,19 @@
 package com.acme.kms.service;
 
 import com.acme.kms.entity.Kasse;
-import com.acme.kms.entity.Kassierer;
 import com.acme.kms.repository.KasseBuilder;
 import com.acme.kms.repository.KasseRepository;
 import com.acme.kms.repository.SpecificationBuilder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.assertj.core.api.SoftAssertions;
 import org.assertj.core.api.junit.jupiter.InjectSoftAssertions;
 import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
-import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
@@ -30,19 +21,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledForJreRange;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.MultiValueMap;
-import static java.math.BigDecimal.ONE;
-import static java.time.LocalDateTime.now;
-import static java.util.Locale.GERMANY;
 import static java.util.UUID.randomUUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowableOfType;
@@ -55,17 +39,17 @@ import static org.mockito.Mockito.when;
 @ExtendWith({MockitoExtension.class, SoftAssertionsExtension.class})
 @EnabledForJreRange(min = JAVA_25, max = JAVA_25)
 @SuppressWarnings({
-        "ClassFanOutComplexity",
-        "InnerTypeLast",
-        "WriteTag",
-        "TypeMayBeWeakened",
-        "PMD.AtLeastOneConstructor",
-        "PMD.AvoidAccessibilityAlteration"
+    "ClassFanOutComplexity",
+    "InnerTypeLast",
+    "WriteTag",
+    "TypeMayBeWeakened",
+    "PMD"
 })
 class KasseServiceTest {
     private static final String BEZEICHNUNG = "Kasse";
     private static final String ID_VORHANDEN = "40000000-0000-0000-0000-000000000001";
     private static final String ID_NICHT_VORHANDEN = "ffffffff-ffff-ffff-ffff-ffffffffffff";
+    private static final BigDecimal BARGELDBESTAND_STANDARD = BigDecimal.valueOf(1000.00);
 
     @Mock
     @SuppressWarnings("NullAway.Init")
@@ -189,7 +173,7 @@ class KasseServiceTest {
     }
 
     private Kasse createKasseMock(final UUID id, final String bezeichnung) {
-        return createKasseMock(id, bezeichnung, new BigDecimal(1000));
+        return createKasseMock(id, bezeichnung, BARGELDBESTAND_STANDARD);
     }
 
     private Kasse createKasseMock(
@@ -205,5 +189,4 @@ class KasseServiceTest {
                 .withBons(List.of())
                 .build();
     }
-
 }

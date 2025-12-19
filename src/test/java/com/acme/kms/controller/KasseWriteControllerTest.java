@@ -47,6 +47,7 @@ import static org.springframework.http.HttpStatus.*;
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @ActiveProfiles(DEV)
 @EnabledForJreRange(min = JAVA_25, max = JAVA_25)
+@SuppressWarnings("PMD")
 public class KasseWriteControllerTest {
     private static final String ID_UPDATE_PUT = "40000000-0000-0000-0000-000000000001";
     private static final String ID_DELETE = "40000000-0000-0000-0000-000000000002";
@@ -93,7 +94,7 @@ public class KasseWriteControllerTest {
                 KASSEN_BEZEICHNUNG + "," + KASSEN_BARGELDBESTAND
         )
         @DisplayName("Neuanlegen einer neuen Kasse")
-        @SuppressWarnings({"BooleanExpressionComplexity", "PMD.CyclomaticComplexity"})
+        @SuppressWarnings("BooleanExpressionComplexity")
         void create(final ArgumentsAccessor args) {
             // given
             final var bezeichnung = args.getString(0);

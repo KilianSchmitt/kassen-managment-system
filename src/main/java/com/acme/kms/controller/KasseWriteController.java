@@ -6,9 +6,7 @@ import com.acme.kms.controller.KasseDTO.OnCreate;
 import com.acme.kms.service.VersionOutdatedException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -34,6 +32,7 @@ import static com.acme.kms.controller.KasseWriteController.API_PATH;
 @Controller
 @RequestMapping(API_PATH)
 @Validated
+@SuppressWarnings("checkstyle:ClassFanOutComplexity")
 public class KasseWriteController {
     static final String API_PATH = "/api/kassen";
     private static final String VERSIONSNUMMER_FEHLT = "Versionsnummer fehlt";
@@ -42,7 +41,7 @@ public class KasseWriteController {
     private final KasseMapper mapper;
     private final StableValue<Logger> logger = StableValue.of();
 
-    KasseWriteController(KasseWriteService service, KasseMapper mapper) {
+    KasseWriteController(final KasseWriteService service, final KasseMapper mapper) {
         this.service = service;
         this.mapper = mapper;
     }

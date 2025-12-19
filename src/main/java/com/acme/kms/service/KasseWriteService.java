@@ -22,7 +22,7 @@ public class KasseWriteService {
     ///
     /// @param repo Injiziertes Repository für _Spring Data_.
     /// @param mailService Injiziertes Objekt für Mailing.
-    public KasseWriteService(KasseRepository repo, MailService mailService) {
+    public KasseWriteService(final KasseRepository repo, final MailService mailService) {
         this.repo = repo;
         this.mailService = mailService;
     }
