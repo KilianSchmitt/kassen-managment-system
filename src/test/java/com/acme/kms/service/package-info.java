@@ -15,21 +15,5 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.acme.kms.config;
-
-import org.springframework.context.annotation.Profile;
-import static com.acme.kms.config.DevConfig.DEV;
-
-/// Konfigurationsklasse für die Anwendung bzw. den Microservice, falls das Profile `dev` aktiviert ist.
-///
-/// @author [Jürgen Zimmermann](mailto:Juergen.Zimmermann@h-ka.de)
-@Profile(DEV)
-@SuppressWarnings({"ClassNamePrefixedWithPackageName", "HideUtilityClassConstructor"})
-public final class DevConfig implements TomcatHttpConnector, Flyway, LogRequestHeaders, K8s {
-    /// Konstante für das Spring-Profile `dev`.
-    public static final String DEV = "dev";
-
-    /// Konstruktor mit _package private_ für _Spring_.
-    DevConfig() {
-    }
-}
+/// Tests für kunde.
+package com.acme.kms.service;

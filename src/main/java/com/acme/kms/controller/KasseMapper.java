@@ -9,9 +9,13 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 interface KasseMapper {
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "version", ignore = true)
+    @Mapping(target = "aktualisiert", ignore = true)
     Kasse toKasse(KasseDTO dto);
+
     @Mapping(target = "id", ignore = true)
     Kassierer toKassierer(KassiererDTO dto);
+
     @Mapping(target = "id", ignore = true)
     KassenBon toKassenBon(KassenBonDTO dto);
 }

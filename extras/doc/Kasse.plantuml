@@ -11,36 +11,66 @@ package java {
     }
     package time {
         class LocalDate
+        class LocalDateTime
     }
 }
 
+package jakarta.persistence {
+    annotation Entity
+    annotation Table
+    annotation Id
+    annotation GeneratedValue
+    annotation Version
+    annotation ManyToOne
+    annotation OneToMany
+}
+
+package org.hibernate.annotations {
+    annotation CreationTimestamp
+    annotation UpdateTimestamp
+}
+
 package com.acme.kms.entity #DDDDDD {
-    class Kasse <<entity>> {
+    class Kasse << entity >> << @Entity >> << @Table >> {
+        @Id
+        @GeneratedValue
         id: UUID
+        @Version
+        version: int
         bezeichnung: String
-        kassierer: Kassierer
         bargeldbestand: BigDecimal
-        kassenBons: List<KassenBon>
+        @CreationTimestamp
+        erzeugt: LocalDateTime
+        @UpdateTimestamp
+        aktualisiert: LocalDateTime
     }
 
-    class Kassierer {
+    class Kassierer << entity >> << @Entity >> {
+        @Id
+        @GeneratedValue
         id: UUID
         vorname: String
-        nachnameTest: String
+        nachname: String
         email: String
     }
 
-    class KassenBon {
+    class KassenBon << entity >> << @Entity >> {
+        @Id
+        @GeneratedValue
         id: UUID
-        date: LocalDate
+        datum: LocalDate
         betrag: BigDecimal
     }
 
-    Kasse *-- "0..*" KassenBon : kassenBons
+    Kasse *-- "1" Kassierer : @ManyToOne \n kassierer
+    Kasse *-- "0..*" KassenBon : @OneToMany \n kassenBons
 
     Kasse ..> UUID
     Kasse ..> BigDecimal
     Kasse ..> List
+    Kasse ..> LocalDateTime
+    Kasse .up.> Entity
+    Kasse .up.> CreationTimestamp
 
     Kassierer ..> UUID
     KassenBon ..> UUID

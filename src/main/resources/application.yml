@@ -39,6 +39,7 @@
 #  resourceserver.permit-all:
 #    - /api/**
 #    - /auth/*
+#    - /dev/db_populate
 #    - /error
 #    - /actuator
 #    - /actuator/**
@@ -61,7 +62,6 @@ server:
     enabled: true
     mime-types: application/json
     min-response-size: 2KB
-  error.whitelabel.enabled: false
   # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto.webserver.configure-ssl
   http2.enabled: true
   port: 8443
@@ -77,42 +77,42 @@ spring:
   # ==============================================================================
   # https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.data
   datasource:
-    username: Change Me! # als System-Property oder Umgebungsvariable
-    password: Change Me! # als System-Property oder Umgebungsvariable
-    url: Change Me! # als System-Property oder Umgebungsvariable
+    username: postgres # als System-Property oder Umgebungsvariable
+    password: p # als System-Property oder Umgebungsvariable
+    url: jdbc:postgresql://localhost:5432/kms # als System-Property oder Umgebungsvariable
 
   # https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.data-migration
-#  flyway.create-schemas: false
+  flyway.create-schemas: false
 
   # https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html#appendix.application-properties.data
-#  jpa:
-#    #database-platform: POSTGRESQL
-#    hibernate:
-#      # https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#configurations-hbmddl
-#      #ddl-auto: none
-#      naming.physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
-#    open-in-view: false
-#    properties:
-#      # https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/cfg/AvailableSettings.html
-#      # https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/cfg/Environment.html
-#      hibernate:
-#        #default_schema: kunde
-#        flushMode: COMMIT
-#        jdbc:
-#          time_zone: Europe/Berlin
-#          batch_versioned_data: true
-#          #fetch_size: 10
-#        order_inserts: true
-#        order_updates: true
-#        session.events.log.LOG_QUERIES_SLOWER_THAN_MS: 20
-#        xml_mapping_enabled: false
-#        #mapping.default_list_semantics: LIST
-#      # https://stackoverflow.com/questions/31585698/spring-boot-jpa2-hibernate-enable-second-level-cache
-#      # https://jakarta.ee/xml/ns/persistence
-#      # https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd
-#      jakarta.persistence:
-#        sharedCache.mode: ENABLE_SELECTIVE
-#        validation.mode: NONE
+  jpa:
+    #database-platform: POSTGRESQL
+    hibernate:
+      # https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#configurations-hbmddl
+      #ddl-auto: none
+      naming.physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    open-in-view: false
+    properties:
+      # https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/cfg/AvailableSettings.html
+      # https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/cfg/Environment.html
+      hibernate:
+        #default_schema: kunde
+        flushMode: COMMIT
+        jdbc:
+          time_zone: Europe/Berlin
+          batch_versioned_data: true
+          #fetch_size: 10
+        order_inserts: true
+        order_updates: true
+        session.events.log.LOG_QUERIES_SLOWER_THAN_MS: 20
+        xml_mapping_enabled: false
+        #mapping.default_list_semantics: LIST
+      # https://stackoverflow.com/questions/31585698/spring-boot-jpa2-hibernate-enable-second-level-cache
+      # https://jakarta.ee/xml/ns/persistence
+      # https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd
+      jakarta.persistence:
+        sharedCache.mode: ENABLE_SELECTIVE
+        validation.mode: NONE
 
   # siehe org.springframework.boot.autoconfigure.jackson.JacksonProperties
   jackson.default-property-inclusion: non_null
@@ -121,15 +121,15 @@ spring:
   # ==============================================================================
   # M a i l
   # ==============================================================================
-#  mail:
-#    host: smtp.acme.com
-#    port: 25
-#    #protocol: smtp
-#    properties.mail:
-#      debug: false
-#      smtp:
-#        auth: false
-#        starttls.enable: false
+  mail:
+    host: smtp.acme.com
+    port: 25
+    #protocol: smtp
+    properties.mail:
+      debug: false
+      smtp:
+        auth: false
+        starttls.enable: false
     # GMail https://www.geeksforgeeks.org/springboot/spring-boot-sending-email-via-smtp
     #host: smtp.gmail.com
     #port: 587
@@ -139,6 +139,12 @@ spring:
     #properties.mail.smtp.starttls.enable: true
 
   main.lazy-initialization: true
+  mvc:
+    apiversion:
+      default: 2.0.0
+      use.header: X-Version
+    contentnegotiation.default-content-types: [application/json]
+    problemdetails.enabled: true
 
   # ==============================================================================
   # S e c u r i t y
@@ -185,7 +191,7 @@ management:
 #  simple.metrics.export.enabled: false
 
   # https://docs.spring.io/spring-boot/4.0/appendix/application-properties/index.html#application-properties.actuator.management.zipkin.tracing.export.enabled
-#  zipkin.tracing.export.enabled: true
+#  tracing.export.zipkin.enabled: true
 
 # ==============================================================================
 # L o g g i n g
@@ -260,16 +266,16 @@ spring:
   # ==============================================================================
   # D a t e n b a n k
   # ==============================================================================
-#  datasource:
-#    # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix.application-properties.data
-#    # https://github.com/brettwooldridge/HikariCP#frequently-used
-#    # https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
-#    # https://stackoverflow.com/questions/51136693/how-to-check-hikaricp-connection-pooling-is-working-or-not-in-java
-#    hikari:
-#      connection-timeout: 10000 # Default: 30_000 = 30 Sekunden
-#      idle-timeout: 120000 # Default: 600_000 = 10 Minuten
-#      maximum-pool-size: 3 # Default: 10
-#      minimum-idle: 1 # Default: maximumPoolSize
+  datasource:
+    # https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#appendix.application-properties.data
+    # https://github.com/brettwooldridge/HikariCP#frequently-used
+    # https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing
+    # https://stackoverflow.com/questions/51136693/how-to-check-hikaricp-connection-pooling-is-working-or-not-in-java
+    hikari:
+      connection-timeout: 10000 # Default: 30_000 = 30 Sekunden
+      idle-timeout: 120000 # Default: 600_000 = 10 Minuten
+      maximum-pool-size: 3 # Default: 10
+      minimum-idle: 1 # Default: maximumPoolSize
 
   # ==============================================================================
   # G r a p h Q L
@@ -287,21 +293,21 @@ spring:
   # ==============================================================================
   # https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/cfg/AvailableSettings.html
   # https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/cfg/Environment.html
-#  jpa.properties.hibernate:
-#    connection.pool_size: 3
-#    # https://docs.jboss.org/hibernate/orm/current/introduction/html_single/Hibernate_Introduction.html#logging-generated-sql
-#    format_sql: true
-#    highlight_sql: true
-#    # https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/tool/schema/internal/script/MultiLineSqlScriptExtractor.html
-#    #hbm2ddl.import_files_sql_extractor: org.hibernate.tool.schema.internal.script.MultiLineSqlScriptExtractor
-#    use_sql_comments: true
+  jpa.properties.hibernate:
+    connection.pool_size: 3
+    # https://docs.jboss.org/hibernate/orm/current/introduction/html_single/Hibernate_Introduction.html#logging-generated-sql
+    format_sql: true
+    highlight_sql: true
+    # https://docs.jboss.org/hibernate/orm/current/javadocs/org/hibernate/tool/schema/internal/script/MultiLineSqlScriptExtractor.html
+    #hbm2ddl.import_files_sql_extractor: org.hibernate.tool.schema.internal.script.MultiLineSqlScriptExtractor
+    use_sql_comments: true
 
   # ==============================================================================
   # M a i l
   # ==============================================================================
-#  mail:
-#    host: localhost
-#    port: 8025
+  mail:
+    host: localhost
+    port: 1025
 
   # https://stackoverflow.com/questions/53723613/how-to-set-enableloggingrequestdetails-true-in-spring-boot#answer-62817587
   mvc.log-request-details: true
@@ -323,8 +329,8 @@ management:
   #tracing.sampling.probability: 1
 
 server.tomcat:
-  max-connections: 20
-  threads.max: 20
+  max-connections: 128
+  threads.max: 96
 
 # ==============================================================================
 # L o g g i n g
@@ -382,17 +388,3 @@ logging:
     org.springframework.test.context.support.AbstractContextLoader: warn
     org.springframework.test.context.support.AnnotationConfigContextLoaderUtils: warn
     org.springframework.test.context.support.DefaultTestContextBootstrapper: warn
-
----
-# ==============================================================================
-# P r o f i l e   " n a t i v e "
-# ==============================================================================
-spring:
-  config.activate.on-profile: native
-  ssl.bundle.pem.microservice:
-    keystore:
-      private-key: ./private-key.pem
-      certificate: ./certificate.crt
-    truststore:
-      certificate: ./certificate.crt
-logging.file.name: ./application.log

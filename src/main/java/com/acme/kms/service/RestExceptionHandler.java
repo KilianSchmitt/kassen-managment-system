@@ -1,5 +1,6 @@
 package com.acme.kms.service;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -43,5 +44,24 @@ public class RestExceptionHandler {
         final var detailMessages = ex.getDetailMessageArguments();
         final var detail = ((String) detailMessages[1]).replace(", and ", ", ");
         return ProblemDetail.forStatusAndDetail(UNPROCESSABLE_CONTENT, detail);
+    }
+
+    /// [ExceptionHandler], wenn ein Unique Constraint verletzt wird (z.B. doppelte E-Mail).
+    /// @param ex Die zugehörige [DataIntegrityViolationException].
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ProblemDetail handleDataIntegrityViolationException(final DataIntegrityViolationException ex) {
+        final String message = ex.getMessage();
+
+        if (message != null && message.contains("kassierer_email_key")) {
+            return ProblemDetail.forStatusAndDetail(
+                    HttpStatus.CONFLICT,
+                    "Diese E-Mail-Adresse ist bereits registriert"
+            );
+        }
+
+        return ProblemDetail.forStatusAndDetail(
+                HttpStatus.CONFLICT,
+                "Ein Datenbankconstraint wurde verletzt"
+        );
     }
 }

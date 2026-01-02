@@ -1,12 +1,33 @@
 package com.acme.kms.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.Objects;
 import java.util.UUID;
 
+@Entity
 public class Kassierer {
+    @Id
+    @GeneratedValue
+    @NotNull
     private UUID id;
+
+    @NotBlank
     private String vorname;
+
+    @NotBlank
     private String nachname;
+
+    @NotBlank
     private String email;
+
+    @SuppressWarnings("NullAway.Init")
+    public Kassierer() {
+    }
 
     public Kassierer(final UUID id, final String vorname, final String nachname, final String email) {
         this.id = id;
@@ -55,5 +76,15 @@ public class Kassierer {
 
     public void setEmail(final String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return other instanceof Kassierer kassierer && Objects.equals(id, kassierer.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

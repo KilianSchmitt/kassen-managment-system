@@ -19,11 +19,12 @@ public record KasseDTO(
         @NotBlank
         String bezeichnung,
 
-        @NotNull
+        @Nullable
         @Valid
         KassiererDTO kassierer,
 
         @PositiveOrZero
+        @NotNull
         BigDecimal bargeldbestand,
 
         @UniqueElements
