@@ -1,5 +1,6 @@
 package com.acme.kms.controller;
 
+import com.acme.kms.security.RolleAdmin;
 import com.acme.kms.service.KasseExistsException;
 import com.acme.kms.service.KasseWriteService;
 import com.acme.kms.controller.KasseDTO.OnCreate;
@@ -58,6 +59,7 @@ public class KasseWriteController {
     @ApiResponse(responseCode = "201", description = "Kasse neu angelegt")
     @ApiResponse(responseCode = "400", description = "Syntaktische Fehler im Request-Body")
     @ApiResponse(responseCode = "422", description = "Ungültige Werte oder Kassenbezeichnung vorhanden")
+    @RolleAdmin
     public ResponseEntity<Void> post(
             @RequestBody @Validated({Default.class, OnCreate.class}) final KasseDTO kasseDTO,
             final HttpServletRequest request
@@ -88,6 +90,7 @@ public class KasseWriteController {
     @ApiResponse(responseCode = "412", description = "Versionsnummer falsch")
     @ApiResponse(responseCode = "422", description = "Ungültige Werte oder Kassenbezeichnung vorhanden")
     @ApiResponse(responseCode = "428", description = VERSIONSNUMMER_FEHLT)
+    @RolleAdmin
     public ResponseEntity<Void> put(
             @PathVariable final UUID id,
             @RequestBody @Validated final KasseDTO kasseDTO,
@@ -130,6 +133,7 @@ public class KasseWriteController {
     @ResponseStatus(NO_CONTENT)
     @Operation(summary = "Eine Kasse anhand der ID loeschen", tags = "Loeschen")
     @ApiResponse(responseCode = "204", description = "Gelöscht")
+    @RolleAdmin
     void deleteById(@PathVariable final UUID id)  {
         getLogger().debug("deleteById: id={}", id);
         service.deleteById(id);

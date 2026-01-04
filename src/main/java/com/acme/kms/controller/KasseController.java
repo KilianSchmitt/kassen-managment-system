@@ -1,5 +1,9 @@
 package com.acme.kms.controller;
 
+import com.acme.kms.security.JwtService;
+import com.acme.kms.security.RolleAdmin;
+import com.acme.kms.security.RolleAdminOrUser;
+import com.acme.kms.security.RolleType;
 import com.acme.kms.service.KasseService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,9 +16,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PagedModel;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.jspecify.annotations.Nullable;
+
+import java.util.Collection;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.NOT_MODIFIED;
@@ -53,6 +61,7 @@ class KasseController {
     @ApiResponse(responseCode = "200", description = "Kasse gefunden")
     @ApiResponse(responseCode = "404", description = "Kasse nicht gefunden")
     @SuppressWarnings("ReturnCount")
+    @RolleAdminOrUser
     ResponseEntity<Object> getById(
             @PathVariable final UUID id,
             @RequestParam(defaultValue = DEFAULT_KASSENBONS) final boolean kassenbons,
@@ -107,6 +116,7 @@ class KasseController {
     @Operation(summary = "Suche mit Query-Parameter", tags = SUCHEN_TAG)
     @ApiResponse(responseCode = "200", description = "Page mit den Kassen")
     @ApiResponse(responseCode = "404", description = "Keine Kassen gefunden")
+    @RolleAdminOrUser
     PagedModel<KasseOhneKassenbons> get(
             @RequestParam final MultiValueMap<String, String> queryparam,
             @RequestParam(defaultValue = "0") final int page,

@@ -4,16 +4,22 @@ package com.acme.kms.service;
 import com.acme.kms.entity.Kasse;
 import com.acme.kms.repository.KasseRepository;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import com.acme.kms.repository.SpecificationBuilder;
+import com.acme.kms.security.RolleType;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.stereotype.Service;
+
+import static com.acme.kms.security.RolleType.ADMIN;
 
 @Service
 public class KasseService {

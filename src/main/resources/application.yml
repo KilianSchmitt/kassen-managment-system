@@ -22,32 +22,33 @@
 # https://stackoverflow.com/questions/74571191/use-keycloak-spring-adapter-with-spring-boot-3#answer-74572732
 # https://github.com/ch4mpy/spring-addons/tree/master/samples/tutorials
 # com.c4_soft.springaddons.security.oidc.starter.properties.SpringAddonsOidcProperties
-#com.c4-soft.springaddons.oidc:
-#  ops:
-#    # "iss" ist Praefix fuer ".../.well-known/openid-configuration"
-#    - iss: ${app.keycloak.issuer-uri}
-#      username-claim: preferred_username
-#      authorities:
-#        # Pfad zu den Rollen innerhalb vom "JWT Claim" und zusaetzlicher Praefix "ROLE_" fuer Spring Security
-#        - path: $.realm_access.roles
-#          #prefix: ROLE_
-#        - path: $.resource_access.*.roles
-#          prefix: ROLE_
-
+com.c4-soft.springaddons.oidc:
+  ops:
+    # "iss" ist Praefix fuer ".../.well-known/openid-configuration"
+    - iss: http://localhost:8880/realms/spring
+      aud: spring-client
+      jwk-set-uri: http://keycloak:8080/realms/spring/protocol/openid-connect/certs
+      username-claim: preferred_username
+      authorities:
+        # Pfad zu den Rollen innerhalb vom "JWT Claim" und zusaetzlicher Praefix "ROLE_" fuer Spring Security
+        - path: $.realm_access.roles
+          #prefix: ROLE_
+        - path: $.resource_access.*.roles
+          prefix: ROLE_
   # com.c4_soft.springaddons.security.oidc.starter.properties.SpringAddonsOidcResourceServerProperties
   # in com.c4-soft.springaddons:spring-addons-starter-oidc
-#  resourceserver.permit-all:
-#    - /api/**
-#    - /auth/*
-#    - /dev/db_populate
-#    - /error
-#    - /actuator
-#    - /actuator/**
-#    - /v3/api-docs
-#    - /v3/api-docs.yaml
-#    - /swagger-ui.html
-#    - /graphql
-#    - /graphiql
+  resourceserver.permit-all:
+    - /api/**
+    - /auth/*
+    - /dev/db_populate
+    - /error
+    - /actuator
+    - /actuator/**
+    - /v3/api-docs
+    - /v3/api-docs.yaml
+    - /swagger-ui.html
+    - /graphql
+    - /graphiql
   # com.c4_soft.springaddons.security.oidc.starter.properties.CorsProperties
   # in com.c4-soft.springaddons:spring-addons-starter-oidc
   #cors:
@@ -150,9 +151,9 @@ spring:
   # S e c u r i t y
   # ==============================================================================
   # https://docs.spring.io/spring-security/reference/servlet/oauth2/resource-server/jwt.html
-#  security.oauth2.resourceserver.jwt:
-#    # "issuer-uri" ist Praefix fuer ".../.well-known/openid-configuration"
-#    issuer-uri: ${app.keycloak.issuer-uri}
+  security.oauth2.resourceserver.jwt:
+    # "issuer-uri" ist Praefix fuer ".../.well-known/openid-configuration"
+    issuer-uri: ${app.keycloak.issuer-uri}
     #jws-algorithms: RS256
 
   # ==============================================================================
@@ -168,6 +169,8 @@ spring:
       certificate: "classpath:certificate.crt"
 
   threads.virtual.enabled: true
+  web.error.whitelabel.enabled: false
+
 
 # ==============================================================================
 # A c t u a t o r
@@ -222,21 +225,21 @@ springdoc:
   enable-hateoas: false
   enable-groovy: false
   enable-kotlin: false
-  show-oauth2-endpoints: false
+  show-oauth2-endpoints: true
   show-spring-cloud-functions: false
 
 # ==============================================================================
 # E i g e n e   P r o p e r t i e s
 # ==============================================================================
-#app:
+app:
   # siehe Klasse KeycloakProps
-#  keycloak:
-#    client-id: spring-client
-#    client-secret: Change Me! # als System-Property fuer "gradle bootRun" oder "mvn spring-boot:run" oder als Umgebungsvariable fuer "Docker Compose"
-#    host: keycloak
-#    port: 8443
-#    # "issuer-uri" ist Praefix fuer ".../.well-known/openid-configuration"
-#    issuer-uri: https://keycloak:8443/realms/spring
+  keycloak:
+    client-id: spring-client
+    client-secret: b89LTVACi9Z4VScoXvL2ES1hdyqbBrf6 # als System-Property fuer "gradle bootRun" oder "mvn spring-boot:run" oder als Umgebungsvariable fuer "Docker Compose"
+    host: keycloak
+    port: 8443
+    # "issuer-uri" ist Praefix fuer ".../.well-known/openid-configuration"
+    issuer-uri: https://keycloak:8443/realms/spring
 
   #mail:
   #  from: Theo Test <theo@test.de>
